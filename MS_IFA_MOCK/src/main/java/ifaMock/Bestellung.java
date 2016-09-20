@@ -6,6 +6,10 @@ public class Bestellung {
 	
 	private STATUS currentStatus;
 	
+	public Bestellung() {
+		this.currentStatus = STATUS.values()[0];
+	}
+	
 	public Bestellung(STATUS s){
 		this.currentStatus = s;
 	}
