@@ -10,30 +10,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Component
 public class GUISubscriber implements Listener {
 	
-	Communicator comm = new Communicator(this);
-	
-	String lastStatus = "noch kein Status";
-	
-    @RequestMapping("/getStatus")
-    public String getStatus() {
-    	return lastStatus;
-    }
-    
 	@Autowired
 	private SimpMessagingTemplate template;
 	
+	Communicator comm = new Communicator(this);
+	
+    @RequestMapping("/getStatus")
+    public StatusMessage getStatus() {
+    	return StatusMessage.message;
+    }
+    
     @RequestMapping("/incrementStatus")
     public String incrementStatus() {
     	comm.sendMessage("incrementStatus");
-    	
-    	
-    	
     	return "incremented Status";
     }
 
 	@Override
 	public void setBestellStatus(String message) {
-		this.lastStatus = message;
-		template.convertAndSend("/topic/greetings", lastStatus);
+		StatusMessage.message.setName(message);
+	}
+
+	@Override
+	public void setProgressBarStatus(int percentage) {
+		StatusMessage.message.setPercentage(percentage);
+	}
+	
+	@Override
+	public void sendUpdate(){
+		template.convertAndSend("/topic/greetings", StatusMessage.message);
 	}
 }

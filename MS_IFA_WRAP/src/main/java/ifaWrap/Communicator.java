@@ -32,7 +32,6 @@ public class Communicator {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(" [x] Sent '" + message + "'");
 	}
 	
     private void listForMessages(){
@@ -42,10 +41,14 @@ public class Communicator {
                 throws IOException {
               String message = new String(body, "UTF-8");
               
-              if (!message.startsWith("STATUS:")) return;
+              if (!message.startsWith("forWrap:")) return;
+              message = message.replace("forWrap:", "");
               System.out.println(" [x] Received '" + message + "'");
               
-              listener.setBestellStatus(message.split("STATUS:")[1]);
+              String[] split = message.split(":");
+              listener.setBestellStatus(split[0]);
+              listener.setProgressBarStatus(Integer.valueOf(split[1]));
+              listener.sendUpdate();
             }
           };
           try {

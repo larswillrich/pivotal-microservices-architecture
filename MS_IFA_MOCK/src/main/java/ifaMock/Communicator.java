@@ -47,7 +47,7 @@ public class Communicator {
               
               System.out.println(" [x] Received '" + message + "'");
               String incrementBestellStatus = listener.incrementBestellStatus();
-              sendMessage("STATUS: " + incrementBestellStatus);
+              sendMessage("forWrap:" + incrementBestellStatus + ":" + listener.getProgress());
             }
           };
           try {

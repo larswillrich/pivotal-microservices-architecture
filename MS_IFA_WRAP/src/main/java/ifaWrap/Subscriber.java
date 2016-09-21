@@ -9,9 +9,9 @@ public class Subscriber {
 
 	@CrossOrigin(origins = "http://localhost:8123")
 	@RequestMapping("/subscribe")
-	public String getStatus() {
+	public StatusMessage getStatus() {
 
-		return "subscribed";
+		return StatusMessage.message;
 	}
 
 	@CrossOrigin(origins = "http://localhost:8123")

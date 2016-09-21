@@ -2,13 +2,14 @@ var React = require('react');
 import { ProgressBar } from 'react-bootstrap';
 var fetch = require('node-fetch');	
 
+var URI = "http://localhost:8080";
 
 var connectToWebSocket = function(callback){
 	var stompClient = null;
 
 
 	function connect() {
-		var socket = new SockJS('http://localhost:8080/orderStatus');
+		var socket = new SockJS(URI + '/orderStatus');
 		stompClient = Stomp.over(socket);
 		
 
@@ -16,8 +17,7 @@ var connectToWebSocket = function(callback){
 
 			console.log('Connected: ' + frame);
 			stompClient.subscribe('/topic/greetings', function (greeting) {
-				callback(greeting.body);
-				console.log(greeting.body);
+				callback(JSON.parse(greeting.body));
 			});
 		});
 	}
@@ -35,27 +35,38 @@ var connectToWebSocket = function(callback){
 export default React.createClass({
 	
 	getInitialState: function() {
-		return {progressbarValue: 75, 
-				status: "noch leer"};
+		return {progressbarValue: 0, 
+				statusHistory: ["noch leer"]};
 	},
 	
 	componentWillMount: function(){
 		
 		var that = this;
 		
-		fetch('http://localhost:8080/subscribe')
+		fetch(URI + '/subscribe')
 		.then(function(res) {
 			return res.text();
 		}).then(function(body) {
-			connectToWebSocket(function (content) {
-				console.log("content: " + content);
+			
+			var updateStatus = function (content) {
+				if (that.state.statusHistory[0] == "noch leer"){
+					that.state.statusHistory = [];
+				}
+				if (content.name == "EINGEGANGEN"){
+					that.state.statusHistory = ["EINGEGANGEN"];
+				}
+				else that.state.statusHistory.unshift(content.name);
 				that.setState(
 					{
-						progressbarValue: that.state.progressbarValue,
-						status: content
+						progressbarValue: content.percentage,
+						statusHistory : that.state.statusHistory
 					}
 				);
-			});
+			}
+			
+			updateStatus(JSON.parse(body));
+			
+			connectToWebSocket(updateStatus);
 		});
 	},
 
@@ -66,10 +77,10 @@ export default React.createClass({
 			<h1>Bestellprozess</h1>
 			<p className="lead">Ihr Auto ist in folgendem Bestellstatus</p>
 			<ProgressBar active now={this.state.progressbarValue} />
-			<div>{this.state.status}</div>
 				<ul className="list-unstyled">
-					<li>Bootstrap v3.3.7</li>
-					<li>jQuery v1.11.1</li>
+					{this.state.statusHistory.map(function(result, i) {
+						return <li key={i}>{result}</li>;
+					})}
 				</ul>
 			</div>
 		);

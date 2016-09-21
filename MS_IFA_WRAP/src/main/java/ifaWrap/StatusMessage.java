@@ -2,20 +2,23 @@ package ifaWrap;
 
 public class StatusMessage {
 
-	private String name;
+	private String status;
 	private int percentage;
+	
+	public static StatusMessage message = new StatusMessage("noch leer", 0);
 
-	public StatusMessage(String status, int percentage) {
-		this.name = name;
+	private StatusMessage(String status, int percentage) {
+		this.status = status;
 		this.percentage = percentage;
 	}
+	
 
-	public String getName() {
-		return name;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String status) {
+		this.status = status;
 	}
 
 	public int getPercentage() {
@@ -25,5 +28,4 @@ public class StatusMessage {
 	public void setPercentage(int percentage) {
 		this.percentage = percentage;
 	}
-
 }

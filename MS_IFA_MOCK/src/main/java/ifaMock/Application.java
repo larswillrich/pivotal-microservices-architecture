@@ -18,6 +18,11 @@ public class Application {
 				bestellung.increment();
 				return bestellung.now().toString();
 			}
+			
+			@Override
+			public int getProgress() {
+				return bestellung.getPercentage();
+			}
 		});
 	}
 }
