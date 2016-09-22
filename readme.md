@@ -26,6 +26,12 @@ Fronend:
 - With 'npm start', the dependencies will be downloaded. 
 - With 'webpack' the final package will be bundles and is ready for usage in index.html.
 - with 'webpack-dev-server' a local server instance is going to host the files.
+- 
+```
+npm start
+webpack
+webpack-dev-server --port 8123
+```
 
 ##Deployment for Pivotal WS or Pivotal CF
 In both java projects the file called 'RabbitConfig.java' the commented annotation has to be activated:
