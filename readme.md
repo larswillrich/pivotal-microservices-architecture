@@ -38,3 +38,9 @@ In both java projects the file called 'RabbitConfig.java' the commented annotati
 '//@Configuration' -> @Configuration
 
 By doing so the RabbitConfig Class will looking for a rabbit AMPQ Service intance (called IFACommunication) in the Spring cloud context.
+
+After this change every sub project (3 projects) can be pushed to the cloud by
+```
+cf login
+cf push
+```
