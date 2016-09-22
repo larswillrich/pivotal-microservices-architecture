@@ -19,8 +19,11 @@
 
 
 ##Deployment locally
-Backend Services: When the project is checked out locally, it can be simply run by Spring boot via the Application.java (in both projects).
+###Precondition
 Be aware there have to be a rabbitMQ service intance running on the underlying OS, since the project is deployed locally.
+
+###Steps
+Backend Services: When the project is checked out locally, it can be simply run by Spring boot via the Application.java (in both projects).
 
 Fronend: 
 - With 'npm start', the dependencies will be downloaded. 
@@ -34,6 +37,10 @@ webpack-dev-server --port 8123
 ```
 
 ##Deployment for Pivotal WS or Pivotal CF
+###Precondition
+RabbitMQ Service instance is available in Cloud Foundry instance
+
+###Steps
 In both java projects the file called 'RabbitConfig.java' the commented annotation has to be activated:
 '//@Configuration' -> @Configuration
 
