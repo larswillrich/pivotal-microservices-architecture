@@ -78,8 +78,8 @@
 
 	var fetch = __webpack_require__(458);
 
-	//var URI = "http://localhost:8080";
-	var URI = "http://ifawrap.cfapps.io:80";
+	var URI = "http://localhost:8080";
+	//var URI = "http://ifawrap.cfapps.io:80";
 
 	var connectToWebSocket = function connectToWebSocket(callback) {
 		var stompClient = null;

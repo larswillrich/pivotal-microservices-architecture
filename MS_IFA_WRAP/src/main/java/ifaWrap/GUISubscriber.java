@@ -1,43 +1,44 @@
 package ifaWrap;
 
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Component
-public class GUISubscriber implements Listener {
-	
+public class GUISubscriber {
+
 	@Autowired
 	private SimpMessagingTemplate template;
-	
-	Communicator comm = new Communicator(this);
-	
-    @RequestMapping("/getStatus")
-    public StatusMessage getStatus() {
-    	return StatusMessage.message;
-    }
-    
-    @RequestMapping("/incrementStatus")
-    public String incrementStatus() {
-    	comm.sendMessage("incrementStatus");
-    	return "incremented Status";
-    }
 
-	@Override
+	Communicator comm;
+
+	@RequestMapping("/getStatus")
+	public StatusMessage getStatus() {
+		return StatusMessage.message;
+	}
+
+	@RequestMapping("/incrementStatus")
+	public String incrementStatus() {
+		comm.sendMessage("incrementStatus");
+		return "incremented Status";
+	}
+
 	public void setBestellStatus(String message) {
 		StatusMessage.message.setName(message);
 	}
 
-	@Override
 	public void setProgressBarStatus(int percentage) {
 		StatusMessage.message.setPercentage(percentage);
 	}
-	
-	@Override
-	public void sendUpdate(){
+
+	public void sendUpdate() {
 		template.convertAndSend("/topic/greetings", StatusMessage.message);
+	}
+
+	public void setCallBackForIncrementStatus(Communicator communicator) {
+		this.comm = communicator;
 	}
 }

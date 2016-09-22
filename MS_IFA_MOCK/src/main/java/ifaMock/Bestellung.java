@@ -1,5 +1,8 @@
 package ifaMock;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Bestellung {
 
 	public enum STATUS {EINGEGANGEN, VORBEREITUNG, FERTIGUNG, PRUEFUNG, AUSLIEFERUNG, ZUSTELLUNG, EMPFANGEN}

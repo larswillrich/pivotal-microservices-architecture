@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Subscriber {
 
-	@CrossOrigin(origins = "http://localhost:8123")
+	@CrossOrigin(origins = "*")
 	@RequestMapping("/subscribe")
 	public StatusMessage getStatus() {
 
 		return StatusMessage.message;
 	}
 
-	@CrossOrigin(origins = "http://localhost:8123")
+	@CrossOrigin(origins = "*")
 	@RequestMapping("/helloWorld")
 	public String helloWorld() {
 		return "hello World";

@@ -3,6 +3,7 @@ import { ProgressBar } from 'react-bootstrap';
 var fetch = require('node-fetch');	
 
 var URI = "http://localhost:8080";
+//var URI = "http://ifawrap.cfapps.io:80";
 
 var connectToWebSocket = function(callback){
 	var stompClient = null;
@@ -52,10 +53,12 @@ export default React.createClass({
 				if (that.state.statusHistory[0] == "noch leer"){
 					that.state.statusHistory = [];
 				}
-				if (content.name == "EINGEGANGEN"){
+				if (content.status == "EINGEGANGEN"){
 					that.state.statusHistory = ["EINGEGANGEN"];
 				}
-				else that.state.statusHistory.unshift(content.name);
+				else that.state.statusHistory.unshift(content.status);
+				
+				
 				that.setState(
 					{
 						progressbarValue: content.percentage,

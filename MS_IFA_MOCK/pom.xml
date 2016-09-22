@@ -18,11 +18,20 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.rabbitmq/amqp-client -->
 		<dependency>
-			<groupId>com.rabbitmq</groupId>
-			<artifactId>amqp-client</artifactId>
-			<version>3.6.5</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-spring-service-connector</artifactId>
+			<version>1.1.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-cloudfoundry-connector</artifactId>
+			<version>1.1.0.RELEASE</version>
 		</dependency>
 	</dependencies>
 
@@ -37,7 +46,32 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.cloudfoundry</groupId>
+				<artifactId>cf-maven-plugin</artifactId>
+				<version>1.1.2</version>
+				<configuration>
+					<server>mycloudfoundry-instance</server>
+					<target>http://api.run.pivotal.io</target>
+					<org>lars.willrich-og</org>
+					<space>development</space>
+					<appname>IFAMOCK</appname>
+					<url>ifaMock.cfapps.io</url>
+					<memory>512</memory>
+					<instances>1</instances>
+					<env>
+						<ENV-VAR-NAME>env-var-value</ENV-VAR-NAME>
+					</env>
+					<services>
+						<service>
+							<name>IFACommunication</name>
+							<label>rabbitmq</label>
+							<provider>rabbitmq</provider>
+							<plan>lemur</plan>
+						</service>
+					</services>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>

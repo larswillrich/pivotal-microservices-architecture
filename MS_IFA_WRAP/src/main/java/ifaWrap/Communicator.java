@@ -1,90 +1,49 @@
 package ifaWrap;
 
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
+import javax.annotation.PostConstruct;
 
-//rabbitMQ
-import com.rabbitmq.client.ConnectionFactory;
-import com.rabbitmq.client.Consumer;
-import com.rabbitmq.client.DefaultConsumer;
-import com.rabbitmq.client.Envelope;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.AMQP;
-import com.rabbitmq.client.Channel;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.stereotype.Component;
 
+@Component
+@EnableScheduling
+@RabbitListener(queues = "bestellStatusQueue")
 public class Communicator {
 
-	private final static String QUEUE_NAME = "BestellStatusQueue";
-	Connection connection = null;
-	Channel channel = null;
-	private Listener listener;
-	
-	public Communicator(Listener l) {
-		this.listener = l;
-		startRabbit();
-		
-		listForMessages();
+	private final static String QUEUE_NAME = "bestellStatusQueue";
+
+	@Autowired
+	private GUISubscriber guiSubscriber;
+
+	@PostConstruct
+	public void populateMovieCache() {
+		sendMessage("hello bestellStatusQueue from wrap");
+		guiSubscriber.setCallBackForIncrementStatus(this);
 	}
 
-	public void sendMessage(String message){
-		try {
-			channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-    private void listForMessages(){
-        Consumer consumer = new DefaultConsumer(channel) {
-            @Override
-            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
-                throws IOException {
-              String message = new String(body, "UTF-8");
-              
-              if (!message.startsWith("forWrap:")) return;
-              message = message.replace("forWrap:", "");
-              System.out.println(" [x] Received '" + message + "'");
-              
-              String[] split = message.split(":");
-              listener.setBestellStatus(split[0]);
-              listener.setProgressBarStatus(Integer.valueOf(split[1]));
-              listener.sendUpdate();
-            }
-          };
-          try {
-			channel.basicConsume(QUEUE_NAME, true, consumer);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    }
-	
-	private void closeConnection(){
-		try {
-			channel.close();
-			connection.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (TimeoutException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void startRabbit() {
-		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost("localhost");
-		connection = null;
-		channel = null;
+	@RabbitHandler
+	public void process(@Payload String message) {
+		if (!message.startsWith("forWrap:"))
+			return;
+		message = message.replace("forWrap:", "");
+		System.out.println(" [x] Received '" + message + "'");
 
-		try {
-			connection = factory.newConnection();
-			channel = connection.createChannel();
-			channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+		String[] split = message.split(":");
+		guiSubscriber.setBestellStatus(split[0]);
+		guiSubscriber.setProgressBarStatus(Integer.valueOf(split[1]));
+		guiSubscriber.sendUpdate();
+	}
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (TimeoutException e) {
-			e.printStackTrace();
-		}
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
+
+	public void sendMessage(String message) {
+		this.rabbitTemplate.convertAndSend(QUEUE_NAME, message);
+		System.out.println(" [x] wrap Sent '" + message + "'");
 	}
 }
