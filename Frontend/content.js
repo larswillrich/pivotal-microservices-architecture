@@ -75,7 +75,6 @@ var OrderStatus =  React.createClass({
 	componentWillMount: function(){
 		
 		// get initial status
-		console.log(OrderStatus.serverConnectionInformation);
 		fetch(URI + OrderStatus.serverConnectionInformation.getStatus)
 		.then(function(res) {
 			return res.text();
