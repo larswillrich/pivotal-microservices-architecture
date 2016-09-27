@@ -3,6 +3,7 @@ package ifaWrap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,11 +16,13 @@ public class GUISubscriber {
 
 	Communicator comm;
 
+	@CrossOrigin(origins = "*")
 	@RequestMapping("/getStatus")
 	public StatusMessage getStatus() {
 		return StatusMessage.message;
 	}
 
+	@CrossOrigin(origins = "*")
 	@RequestMapping("/incrementStatus")
 	public String incrementStatus() {
 		comm.sendMessage("incrementStatus");
@@ -35,7 +38,7 @@ public class GUISubscriber {
 	}
 
 	public void sendUpdate() {
-		template.convertAndSend("/topic/greetings", StatusMessage.message);
+		template.convertAndSend("/getOrderUpdate", StatusMessage.message);
 	}
 
 	public void setCallBackForIncrementStatus(Communicator communicator) {
