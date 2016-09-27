@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import com.rabbitmq.client.Channel;
 
-@Configuration
+//@Configuration
 public class RabbitConfig {
 	
 	@Bean
