@@ -18,12 +18,10 @@ public class Communicator {
 	private final static String QUEUE_NAME = "bestellStatusQueue";
 
 	@Autowired
-	private GUISubscriber guiSubscriber;
+	private RESTAPI guiSubscriber;
 
 	@PostConstruct
 	public void populateMovieCache() {
-		sendMessage("hello bestellStatusQueue from wrap");
-		guiSubscriber.setCallBackForIncrementStatus(this);
 	}
 
 	@RabbitHandler

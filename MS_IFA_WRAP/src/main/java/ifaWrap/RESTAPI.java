@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Component
-public class GUISubscriber {
+public class RESTAPI {
 
 	@Autowired
 	private SimpMessagingTemplate template;
 
+	@Autowired
 	Communicator comm;
 
 	@CrossOrigin(origins = "*")
@@ -39,9 +40,5 @@ public class GUISubscriber {
 
 	public void sendUpdate() {
 		template.convertAndSend("/getOrderUpdate", StatusMessage.message);
-	}
-
-	public void setCallBackForIncrementStatus(Communicator communicator) {
-		this.comm = communicator;
 	}
 }

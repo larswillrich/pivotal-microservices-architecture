@@ -3,10 +3,10 @@ import { ProgressBar } from 'react-bootstrap';
 var fetch = require('node-fetch');	
 
 //for local deployment
-//var URI = "http://localhost:8081";
+var URI = "http://localhost:8081";
 
 //for cloud deployment
-var URI = "http://ifawrap.cfapps.io:80";
+//var URI = "http://ifawrap.cfapps.io:80";
 
 
 var OrderStatus =  React.createClass({
