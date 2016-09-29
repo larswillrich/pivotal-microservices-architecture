@@ -32,7 +32,7 @@ Fronend:
 - With 'npm start', the dependencies will be downloaded. 
 - With 'webpack' the final package will be bundles and is ready for usage in index.html.
 - with 'webpack-dev-server' a local server instance is going to host the files.
-- 
+
 ```
 npm start
 webpack
