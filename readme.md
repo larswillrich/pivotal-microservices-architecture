@@ -46,6 +46,7 @@ RabbitMQ Service instance is available in Cloud Foundry instance
 ###Steps
 In both java projects the file called 'RabbitConfig.java' the commented annotation has to be activated:
 '//@Configuration' -> @Configuration
+By activating the rabbit configuration is looking for a rabbit service instance in the cloud using spring cloud. The **primary** annotation is necessary because after activation we have two possible instances for autowiring in the **communicator class** and we want to use the instance coming from spring cloud. 
 
 By doing so the RabbitConfig Class will looking for a rabbit AMPQ Service intance (called IFACommunication) in the Spring cloud context.
 
