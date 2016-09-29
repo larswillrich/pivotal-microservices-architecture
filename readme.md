@@ -2,7 +2,7 @@
 
 ##Microservices
 - Frontend: GUI (subscriber on API to get **push notifications** over **STOMP messaging**) 
-- MS-IFA-MOCK: Microservice only accessible via **RabbitMQ-Service** (Message Servive Broker) offered by Pivotal.
+- MS-IFA-API: Microservice only accessible via **RabbitMQ-Service** (Message Servive Broker) offered by Pivotal.
 - MS-IFA-WRAP: Microservice accessible via **REST API** for **GUI-subscribing** with a **Websocket** in order to receive **STOMP push messages**
 
 ![alt tag](https://raw.githubusercontent.com/larswillrich/OrderMgmt/master/Architecture.png)
