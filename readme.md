@@ -1,9 +1,9 @@
 # Demonstrate an Example Microservices Architecture running on Pivotal Web Services and Pivotal Cloud Foundry with ReactJs and Spring Boot
 
 ##Microservices
-- Frontend: GUI (subscriber on API to get _push notifications_ over _STOMP messaging_) 
-- MS-IFA-MOCK: Microservice only accessible via _RabbitMQ-Service_ (Message Servive Broker) offered by Pivotal.
-- MS-IFA-WRAP: Microservice accessible via _REST API_ for _GUI-subscribing_ with a _Websocket_ in order to receive _STOMP push messages_
+- Frontend: GUI (subscriber on API to get **push notifications** over **STOMP messaging**) 
+- MS-IFA-MOCK: Microservice only accessible via **RabbitMQ-Service** (Message Servive Broker) offered by Pivotal.
+- MS-IFA-WRAP: Microservice accessible via **REST API** for **GUI-subscribing** with a **Websocket** in order to receive **STOMP push messages**
 
 ![alt tag](https://raw.githubusercontent.com/larswillrich/OrderMgmt/master/Architecture.png)
 
