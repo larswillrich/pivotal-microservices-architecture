@@ -5,6 +5,8 @@
 - MS-IFA-MOCK: Microservice only accessible via RabbitMQ-Service (Message Servive Broker) offered by Pivotal.
 - MS-IFA-WRAP: Microservice accessible via REST API for GUI-subscribing with a Websocket in order to receive STOMP push messages
 
+![alt tag](https://raw.githubusercontent.com/larswillrich/OrderMgmt/master/Architecture.png)
+
 ##Technology
 
 ###Frontend
