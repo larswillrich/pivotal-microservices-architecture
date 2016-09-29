@@ -1,7 +1,7 @@
 # Example Microservices ready for running on Pivotal WS and Pivotal CF
 
 ##Microservices
-- Frontend: GUI
+- Frontend: GUI (subscriber on API to get push notifications over STOMP messaging) 
 - MS-IFA-MOCK: Microservice only accessible via RabbitMQ-Service (Message Servive Broker) offered by Pivotal.
 - MS-IFA-WRAP: Microservice accessible via REST API for GUI-subscribing with a Websocket in order to receive STOMP push messages
 
@@ -10,13 +10,14 @@
 ##Technology
 
 ###Frontend
-- webpack
+- webpack (bundle packer)
+- react
 - react bootstrap components
 - npm
-- babel
+- babel transpiler
 
 ###Backend Microservices
-- implemented basically with JAVA Spring boot
+- implemented basically with JAVA Spring boot (REST API, Websocket)
 - maven
 
 
