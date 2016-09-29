@@ -52,5 +52,6 @@ By doing so the RabbitConfig Class will looking for a rabbit AMPQ Service intanc
 After this change every sub project (3 projects) can be pushed to the cloud by
 ```
 cf login
-cf push
+cf push (for frontend project)
+mvn clean package cf:push (for maven projects using the maven cloud foundry plugin)
 ```
