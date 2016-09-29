@@ -82,7 +82,7 @@
 	var URI = "http://localhost:8081";
 
 	//for cloud deployment
-	//var URI = "http://ifawrap.cfapps.io:80";
+	//var URI = "http://ifaapi.cfapps.io:80";
 
 
 	var OrderStatus = React.createClass({

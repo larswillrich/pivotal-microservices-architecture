@@ -1,4 +1,4 @@
-package ifaWrap;
+package ifaApi;
 
 import java.io.IOException;
 import java.util.List;

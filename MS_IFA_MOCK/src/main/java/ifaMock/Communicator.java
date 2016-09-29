@@ -32,7 +32,7 @@ public class Communicator {
 
 		System.out.println(" [x] Received '" + message + "'");
 		String incrementBestellStatus = listener.increment().toString();
-		sendMessage("forWrap:" + incrementBestellStatus + ":" + listener.getPercentage());
+		sendMessage("forApi:" + incrementBestellStatus + ":" + listener.getPercentage());
 	}
 
 	@Autowired

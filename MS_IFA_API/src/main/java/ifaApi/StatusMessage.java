@@ -1,4 +1,4 @@
-package ifaWrap;
+package ifaApi;
 
 public class StatusMessage {
 

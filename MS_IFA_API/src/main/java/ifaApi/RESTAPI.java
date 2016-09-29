@@ -1,4 +1,4 @@
-package ifaWrap;
+package ifaApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

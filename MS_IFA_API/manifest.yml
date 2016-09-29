@@ -1,5 +1,5 @@
 ---
 applications:
-- name: IFAWRAP
+- name: IFAAPI
   memory: 512M
-  host: IFAWRAP
+  host: IFAAPI

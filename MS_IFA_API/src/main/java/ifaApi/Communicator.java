@@ -1,4 +1,4 @@
-package ifaWrap;
+package ifaApi;
 
 import javax.annotation.PostConstruct;
 
@@ -26,9 +26,9 @@ public class Communicator {
 
 	@RabbitHandler
 	public void process(@Payload String message) {
-		if (!message.startsWith("forWrap:"))
+		if (!message.startsWith("forAPI:"))
 			return;
-		message = message.replace("forWrap:", "");
+		message = message.replace("forAPI:", "");
 		System.out.println(" [x] Received '" + message + "'");
 
 		String[] split = message.split(":");
@@ -42,6 +42,6 @@ public class Communicator {
 
 	public void sendMessage(String message) {
 		this.rabbitTemplate.convertAndSend(QUEUE_NAME, message);
-		System.out.println(" [x] wrap Sent '" + message + "'");
+		System.out.println(" [x] api Sent '" + message + "'");
 	}
 }
