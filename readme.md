@@ -7,6 +7,11 @@
 
 ![alt tag](https://raw.githubusercontent.com/larswillrich/OrderMgmt/master/Architecture.png)
 
+
+##Demo on Pivotal Web Services
+Find the GUI on PWS: http://odermgmtgui.cfapps.io/
+increment Status with: http://ifaapi.cfapps.io/incrementStatus
+
 ##Technology
 
 ###Frontend
