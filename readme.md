@@ -9,8 +9,8 @@
 
 
 ##Demo on Pivotal Web Services
-Find the GUI on PWS: [a link](http://odermgmtgui.cfapps.io/) 
-increment Status with: [a link](http://ifaapi.cfapps.io/incrementStatus) 
+[Find the GUI on PWS](http://odermgmtgui.cfapps.io/) 
+[increment Status](http://ifaapi.cfapps.io/incrementStatus) 
 
 ##Technology
 
