@@ -1,0 +1,25 @@
+body {
+    background: white;
+}
+
+#bestellProzessContent {
+	    margin-top: 60px;
+
+}
+
+.keyInputForm{
+	padding-top: 30px;
+}
+
+.orderStatus{
+	padding-left: 100px;
+    padding-right: 100px;
+}
+
+#bestellProzessContent > div > div.col-xs-4 > div > div > div > *{
+	margin: 5px;
+}
+
+#bestellProzessContent > div > div.col-xs-4 > div > div > div > label{
+	font-size: 20px;
+}

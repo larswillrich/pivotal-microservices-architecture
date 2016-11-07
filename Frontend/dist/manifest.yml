@@ -1,5 +1,0 @@
----
-applications:
-- name: OderMgmtGUI
-  memory: 512M
-  host: OderMgmtGUI

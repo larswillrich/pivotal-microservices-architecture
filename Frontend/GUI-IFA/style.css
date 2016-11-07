@@ -1,0 +1,33 @@
+body {
+    background: white;
+}
+.ifacontainer > list > div > div {
+	text-align: left;
+}
+.ifacontainer {
+    margin-top: 80px;
+}
+
+.columncaption{
+	text-align: center;
+}
+
+.glyphicon_custom{
+	font-size: 35px;
+	padding-left: 15px;
+}
+
+.glyphicon-forward_custom{
+	color: #29d64b;
+}
+.glyphicon-remove_custom{
+	color: #cc3800;
+}
+
+.glyphicon-remove_custom:hover { 
+	font-size: 37px;
+}
+
+.glyphicon-plus-sign-custom{
+	color: #29d64b;
+}

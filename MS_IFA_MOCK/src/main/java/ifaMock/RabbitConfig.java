@@ -13,9 +13,10 @@ import org.springframework.cloud.service.common.AmqpServiceInfo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+
 import com.rabbitmq.client.Channel;
 
-//@Configuration
+@Configuration
 public class RabbitConfig {
 	
 	@Bean

@@ -1,0 +1,35 @@
+<div ng-controller="ListController" class="col-lg-12 text-center">
+
+<div>
+<p ng-click="lc.newOrder()" class="glyphicon glyphicon-plus-sign glyphicon-plus-sign-custom glyphicon_custom"></p>
+</div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+	  <th class="columncaption" >#</th>
+      <th class="columncaption" >Order ID</th>
+      <th class="columncaption" >Progress</th>
+      <th class="columncaption" >Status</th>
+	  <th class="columncaption" >Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<tr ng-repeat='item in lc.orderData.data' >
+		<th class="columncaption" scope="row">{{item.tableIndex}}</th>
+		<td class="columncaption">
+			<b>{{item.id}}</b>
+		</td>
+		<td class="columncaption">
+			<uib-progressbar value="item.percentage" class="progress-striped active">{{item.percentage}}</uib-progressbar>
+		</td>
+		<td class="columncaption">
+			{{item.currentStatus}}
+		</td>
+		<td class="columncaption">
+			<p ng-click="lc.incrementOrder(item.id)" class="glyphicon glyphicon-forward glyphicon_custom glyphicon-forward_custom"></p>
+			<p ng-click="lc.deleteOrder(item.id)" class="glyphicon glyphicon-remove glyphicon-remove_custom glyphicon_custom"></p>
+		</td>
+	</tr>
+  </tbody>
+</table>
+</div>

@@ -10,15 +10,15 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Component
 @EnableScheduling
 @RabbitListener(queues = "bestellStatusQueue")
 public class Communicator {
 
 	private final static String QUEUE_NAME = "bestellStatusQueue";
-
-	@Autowired
-	private Bestellung listener;
 
 	@PostConstruct
 	public void populateMovieCache() {
@@ -27,12 +27,47 @@ public class Communicator {
 
 	@RabbitHandler
 	public void process(@Payload String message) {
-		if (message.compareTo("incrementStatus") != 0)
+
+		System.out.println(" [x] IFA Received '" + message + "'");
+
+		Bestellung bestellung = null;
+
+		// increment Order
+		if (message.startsWith("incrementStatus=")) {
+			String id = message.replace("incrementStatus=", "");
+			bestellung = Bestellung.bestellungen.get(id);
+			bestellung.increment();
+		}
+
+		// new Order
+		if (message.startsWith("newOrder")) {
+			String id = message.replace("newOrder", "");
+			bestellung = new Bestellung();
+			Bestellung.bestellungen.put(bestellung.getID(), bestellung);
+		}
+
+		// get Order by ID
+		if (message.startsWith("getOrder=")) {
+			String id = message.replace("getOrder=", "");
+			bestellung = Bestellung.bestellungen.get(id);
+		}
+				
+		// get Order by ID
+		if (message.startsWith("deleteOrder=")) {
+			String id = message.replace("deleteOrder=", "");
+			Bestellung.bestellungen.remove(id);
+		}
+
+		if (bestellung == null)
 			return;
 
-		System.out.println(" [x] Received '" + message + "'");
-		String incrementBestellStatus = listener.increment().toString();
-		sendMessage("forApi:" + incrementBestellStatus + ":" + listener.getPercentage());
+		// send order
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			sendMessage(mapper.writeValueAsString(bestellung));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Autowired
@@ -42,5 +77,4 @@ public class Communicator {
 		this.rabbitTemplate.convertAndSend(QUEUE_NAME, message);
 		System.out.println(" [x] mock Sent '" + message + "'");
 	}
-
 }

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 public class WebSocketController {
 
 	@SendTo("/getOrderUpdate")
-	public StatusMessage greeting() throws Exception {
-		return StatusMessage.message;
+	public String greeting() throws Exception {
+		return Bestellung.getAllOrdersAsJSON();
 	}
 
 }
