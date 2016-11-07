@@ -1,11 +1,18 @@
-# Example Microservices ready for running on Pivotal WS and Pivotal CF
+# Demonstrate an Example Microservices Architecture running on Pivotal Web Services and Pivotal Cloud Foundry with ReactJs and Spring Boot
 
 ##Microservices
-- Frontend: GUI (subscriber on API to get push notifications over STOMP messaging) 
-- MS-IFA-MOCK: Microservice only accessible via RabbitMQ-Service (Message Servive Broker) offered by Pivotal.
-- MS-IFA-WRAP: Microservice accessible via REST API for GUI-subscribing with a Websocket in order to receive STOMP push messages
+- Frontend: GUI (subscriber on API to get **push notifications** over **STOMP messaging**) 
+- MS-IFA-API: Microservice only accessible via **RabbitMQ-Service** (Message Servive Broker) offered by Pivotal.
+- MS-IFA-WRAP: Microservice accessible via **REST API** for **GUI-subscribing** with a **Websocket** in order to receive **STOMP push messages**
 
 ![alt tag](https://raw.githubusercontent.com/larswillrich/OrderMgmt/master/Architecture.png)
+
+
+##Demo on Pivotal Web Services
+[Find the GUI on PWS](http://odermgmtgui.cfapps.io/) 
+
+
+[increment Status](http://ifaapi.cfapps.io/incrementStatus) 
 
 ##Technology
 
@@ -32,7 +39,7 @@ Fronend:
 - With 'npm start', the dependencies will be downloaded. 
 - With 'webpack' the final package will be bundles and is ready for usage in index.html.
 - with 'webpack-dev-server' a local server instance is going to host the files.
-- 
+
 ```
 npm start
 webpack
@@ -46,11 +53,17 @@ RabbitMQ Service instance is available in Cloud Foundry instance
 ###Steps
 In both java projects the file called 'RabbitConfig.java' the commented annotation has to be activated:
 '//@Configuration' -> @Configuration
+By activating the rabbit configuration is looking for a rabbit service instance in the cloud using spring cloud. The **primary** annotation is necessary because after activation we have two possible instances for autowiring in the **communicator class** and we want to use the instance coming from spring cloud. 
 
 By doing so the RabbitConfig Class will looking for a rabbit AMPQ Service intance (called IFACommunication) in the Spring cloud context.
 
 After this change every sub project (3 projects) can be pushed to the cloud by
 ```
 cf login
+
+# frontend project
 cf push
+
+# maven projects using the maven cloud foundry plugin
+mvn clean package cf:push
 ```
